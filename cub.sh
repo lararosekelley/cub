@@ -1,4 +1,4 @@
-#cub.sh - quick wolfram|alpha queries from the terminal
+#cub.sh - wolfram|alpha queries from the terminal
 
 #api info
 url="http://api.wolframalpha.com/v2/query"
@@ -7,6 +7,7 @@ id="" #your appid here
 #prompt
 stop=0
 cols=$(tput cols)
+clear
 title="cub.sh: mini wolfram|alpha client"
 printf "%*s\n\n" $(((${#title}+$cols)/2)) "$title"
 
@@ -15,13 +16,14 @@ while [ $stop -eq 0 ]; do
 	printf "enter what you want to calculate or know about: "
 	read input
 	query="$(perl -MURI::Escape -e 'print uri_escape($ARGV[0]);' "$input")"
-	printf "computing...\n"
+	printf "computing..."
 	
 	#get result
 	curl -s -L -G -d "input=$query&appid=$id&format=plaintext" $url > result.xml
 	result=$(xmllint --xpath '/' result.xml)
 	
 	#format and display result
+	echo ''
 	if  [[ $result == *success=\"false\"* ]]; then
 		printf "\n\noops! something went wrong...\n\n"
 	else	
