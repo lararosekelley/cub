@@ -1,4 +1,6 @@
-Cub
-===
+#Cub
+_by Ty-Lucas Kelley_
 
-Quick Wolfram | Alpha queries from the terminal
+Make quick Wolfram|Alpha queries from the terminal
+
+
