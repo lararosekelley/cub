@@ -2,7 +2,7 @@
 
 #api info
 url="http://api.wolframalpha.com/v2/query"
-id="LUT65W-KHA82XTXG8" #your appid here
+id="" #your appid here
 
 #prompt
 stop=0
