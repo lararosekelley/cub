@@ -42,9 +42,6 @@ while [ $stop -eq 0 ]; do
 		done	
 	fi
 	
-	#delete temporary file
-	rm result.xml
-	
 	#ask for another query
 	printf "\ndo you have any more questions (y/n)? "
 	read yes_no
@@ -56,3 +53,6 @@ while [ $stop -eq 0 ]; do
 	
 	printf " \n"
 done
+
+# delete temp file
+rm result.xml
