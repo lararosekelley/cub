@@ -2,7 +2,7 @@
 
 #api info
 url="http://api.wolframalpha.com/v2/query"
-id="" #your appid here
+id=$WOLFRAM_API_KEY #your api key here
 
 #prompt
 stop=0
@@ -34,7 +34,7 @@ while [ $stop -eq 0 ]; do
 			info=$(xmllint --xpath "string(//pod[$i]/subpod/plaintext)" result.xml)
 			
 			if [[ "$info" == "" ]]; then
-				glock="rf"
+				:
 			else
 				printf "\n\e[1m\e[4m$title\n" | tr '[:upper:]' '[:lower:]'
 				printf "\n\n\e[0m$info\n\n"
