@@ -1,59 +1,21 @@
-#!/bin/sh
-#cub.sh - wolfram|alpha queries from the terminal
+#!/usr/bin/env bash
 
-#api info
-url="http://api.wolframalpha.com/v2/query"
-id=$WOLFRAM_API_KEY #your api key here
+# cub
+#
+# wolfram|alpha queries from the terminal
+# --------
 
-#prompt
-stop=0
-cols=$(tput cols)
-clear
-title="cub.sh: mini wolfram|alpha client"
-printf "%*s\n\n" $(((${#title}+$cols)/2)) "$title"
+# get app id
 
-while [ $stop -eq 0 ]; do
-	#get input
-	printf "enter what you want to calculate or know about: "
-	read input
-	query="$(perl -MURI::Escape -e 'print uri_escape($ARGV[0]);' "$input")"
-	printf "computing..."
-	
-	#get result
-	curl -s -L -G -d "input=$query&appid=$id&format=plaintext" $url > result.xml
-	result=$(xmllint --xpath '/' result.xml)
-	
-	#format and display result
-	echo ''
-	if  [[ $result == *success=\"false\"* ]]; then
-		printf "\n\noops! something went wrong...\n\n"
-	else	
-		num_pods=$(xmllint --xpath "string(/queryresult/@numpods)" result.xml)
-		for (( i=1; i<=$num_pods; i++ ))
-		do
-			title=$(xmllint --xpath "string(//pod[$i]/@title)" result.xml)
-			info=$(xmllint --xpath "string(//pod[$i]/subpod/plaintext)" result.xml)
-			
-			if [[ "$info" == "" ]]; then
-				:
-			else
-				printf "\n\e[1m\e[4m$title\n" | tr '[:upper:]' '[:lower:]'
-				printf "\n\n\e[0m$info\n\n"
-			fi
-		done	
-	fi
-	
-	#ask for another query
-	printf "\ndo you have any more questions (y/n)? "
-	read yes_no
-	if [ "$yes_no" == "y" ]; then
-		stop=0
-	else
-		stop=1
-	fi
-	
-	printf " \n"
-done
+if [ -f ~/.cub ]; then
+    # shellcheck disable=1090
+    source ~/.cub
+    app_id="$WOLFRAM_ALPHA_V2_APP_ID"
+else
+    echo -n "Enter your Wolfram|Alpha App ID (will be saved to ~/.cub): " && read -r app_id
+    echo "WOLFRAM_ALPHA_V2_APP_ID=\"$app_id\"" >> ~/.cub
+fi
 
-# delete temp file
-rm result.xml
+url="https://api.wolframalpha.com/v2/query?appid=$app_id&input="
+
+echo "$url"
