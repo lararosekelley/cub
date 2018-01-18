@@ -2,10 +2,10 @@
 
 # cub
 #
-# wolfram|alpha queries from the terminal
+# a wolfram|alpha client for the terminal
 # --------
 
-# get app id
+# get app id and save it
 
 if [ -f ~/.cub ]; then
     # shellcheck disable=1090
@@ -17,5 +17,7 @@ else
 fi
 
 url="https://api.wolframalpha.com/v2/query?appid=$app_id&input="
+
+# to-do
 
 echo "$url"
