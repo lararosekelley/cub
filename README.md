@@ -2,7 +2,7 @@
 
 > A Wolfram|Alpha client for the terminal
 
-TBD
+Travi build
 
 ---
 
