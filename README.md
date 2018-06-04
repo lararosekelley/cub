@@ -2,7 +2,7 @@
 
 > A Wolfram|Alpha client for the terminal
 
-Travi build
+[![Build Status](https://travis-ci.org/tylucaskelley/cub.svg?branch=master)](https://travis-ci.org/tylucaskelley/cub)
 
 ---
 
